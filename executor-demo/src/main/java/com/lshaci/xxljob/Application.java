@@ -8,13 +8,20 @@ public class Application {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
-		System.out.println("============= Spring Boot Server Start Success =============");
+		
 		synchronized (Application.class) {
 			try {
+				System.out.println("\n============= Spring Boot Server Start Success =============\n");
 				Application.class.wait();
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
+				
+				System.err.println("\n-----------------------------------------------------------");
+				System.err.println("------------> Spring Boot Server Start Failed <------------");
+				System.err.println("----------------> System Must Be Shutdown <----------------");
+				System.err.println("-----------------------------------------------------------\n");
+				
 				e.printStackTrace();
+				System.exit(0);
 			}
 		}
 	}
